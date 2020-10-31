@@ -20,7 +20,22 @@ class AlmacenDeParticulas:
             str(Particulas) + '\n'for Particulas in self.__particulas
             
         )
+
+    def __len__(self):
+        return len(self.__particulas)
     
+    def __iter__(self):
+        self.cont = 0
+        return self
+
+    def __next__(self):
+        if self.cont < len(self.__particulas):
+            Particulas = self.__particulas[self.cont]
+            self.cont += 1
+            return Particulas
+        else:
+            raise StopIteration
+
     def guardar(self, ubication):
         try:
             with open(ubication, 'w') as archivo:

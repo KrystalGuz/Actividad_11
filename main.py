@@ -1,7 +1,7 @@
 from PySide2.QtWidgets import QPushButton, QApplication
 import sys
 from mainwindow import MainWindow
-
+#hola
 # Aplicación de Qt
 app = QApplication()
 window = MainWindow()

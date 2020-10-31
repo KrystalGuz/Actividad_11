@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox
+from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox,QTableWidgetItem
 from PySide2.QtCore import Slot
 from ui_mainwindow import Ui_MainWindow
 from AlmacenP import AlmacenDeParticulas
@@ -19,6 +19,79 @@ class MainWindow(QMainWindow):
         self.ui.actionAbrir.triggered.connect(self.action_abrir_archivo)
         self.ui.actionGuardar.triggered.connect(self.action_guardar_archivo)
 
+        self.ui.Mostrar_Tabla_Boton.clicked.connect(self.mostrar_tabla)
+        self.ui.Buscar_Boton.clicked.connect(self.buscar_id)
+
+    @Slot()
+    def buscar_id(self):
+        Id = self.ui.Buscar.text()
+        encontrado = False
+        for Particulas in self.AlmacenP:
+            if Id == str(Particulas.Id):
+                self.ui.tableWidget.clear()
+                self.ui.tableWidget.setRowCount(1)
+
+                Id_widget = QTableWidgetItem(str(Particulas.Id))
+                OrigenX_widget = QTableWidgetItem(str(Particulas.OrigenX))
+                OrigenY_widget = QTableWidgetItem(str(Particulas.OrigenY))
+                DestinoX_widget = QTableWidgetItem(str(Particulas.DestinoX))
+                DestinoY_widget = QTableWidgetItem(str(Particulas.DestinoY))
+                Velocidad_widget = QTableWidgetItem(str(Particulas.Velocidad))
+                Red_widget = QTableWidgetItem(str(Particulas.Red))
+                Green_widget = QTableWidgetItem(str(Particulas.Green))
+                Blue_widget = QTableWidgetItem(str(Particulas.Blue))
+
+                self.ui.tableWidget.setItem(0, 0, Id_widget)
+                self.ui.tableWidget.setItem(0, 1, OrigenX_widget)
+                self.ui.tableWidget.setItem(0, 2, OrigenY_widget)
+                self.ui.tableWidget.setItem(0, 3, DestinoX_widget)
+                self.ui.tableWidget.setItem(0, 4, DestinoY_widget)
+                self.ui.tableWidget.setItem(0, 5, Velocidad_widget)
+                self.ui.tableWidget.setItem(0, 6, Red_widget)
+                self.ui.tableWidget.setItem(0, 7, Green_widget)
+                self.ui.tableWidget.setItem(0, 8, Blue_widget)
+                encontrado = True
+                return
+        if not encontrado:
+            QMessageBox.warning(
+                self,
+                'Atencion',
+                f'La particula con el Id "{Id}" no fue encontrado'
+            )
+                
+
+    @Slot()
+    def mostrar_tabla(self):
+        #print('mostrar_tabla')
+        self.ui.tableWidget.setColumnCount(9)
+        headers = ["Id", "OrigenX", "OrigenY", "DestinoX","DestinoY", "Velocidad", "Red", "Green", "Blue"]
+        self.ui.tableWidget.setHorizontalHeaderLabels(headers)
+
+        self.ui.tableWidget.setRowCount(len(self.AlmacenP))
+        row = 0
+        for Particulas in self.AlmacenP:
+            Id_widget = QTableWidgetItem(str(Particulas.Id))
+            OrigenX_widget = QTableWidgetItem(str(Particulas.OrigenX))
+            OrigenY_widget = QTableWidgetItem(str(Particulas.OrigenY))
+            DestinoX_widget = QTableWidgetItem(str(Particulas.DestinoX))
+            DestinoY_widget = QTableWidgetItem(str(Particulas.DestinoY))
+            Velocidad_widget = QTableWidgetItem(str(Particulas.Velocidad))
+            Red_widget = QTableWidgetItem(str(Particulas.Red))
+            Green_widget = QTableWidgetItem(str(Particulas.Green))
+            Blue_widget = QTableWidgetItem(str(Particulas.Blue))
+
+            self.ui.tableWidget.setItem(row, 0, Id_widget)
+            self.ui.tableWidget.setItem(row, 1, OrigenX_widget)
+            self.ui.tableWidget.setItem(row, 2, OrigenY_widget)
+            self.ui.tableWidget.setItem(row, 3, DestinoX_widget)
+            self.ui.tableWidget.setItem(row, 4, DestinoY_widget)
+            self.ui.tableWidget.setItem(row, 5, Velocidad_widget)
+            self.ui.tableWidget.setItem(row, 6, Red_widget)
+            self.ui.tableWidget.setItem(row, 7, Green_widget)
+            self.ui.tableWidget.setItem(row, 8, Blue_widget)
+
+            row += 1
+    
     @Slot()
     def action_abrir_archivo(self):
         #print('abrir_archivo')

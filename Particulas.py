@@ -23,6 +23,42 @@ class Particula:
             'Blue: ' + str(self.__Blue) + '\n'
         )
 
+    @property
+    def Id(self):
+        return self.__Id
+
+    @property
+    def OrigenX(self):
+        return self.__OrigenX
+
+    @property
+    def OrigenY(self):
+        return self.__OrigenY
+
+    @property
+    def DestinoX(self):
+        return self.__DestinoX
+
+    @property
+    def DestinoY(self):
+        return self.__DestinoY
+
+    @property
+    def Velocidad(self):
+        return self.__Velocidad
+
+    @property
+    def Red(self):
+        return self.__Red
+
+    @property
+    def Green(self):
+        return self.__Green
+
+    @property
+    def Blue(self):
+        return self.__Blue
+
     def to_dict(self):
         return {
             "Id": self.__Id,
